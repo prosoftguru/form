@@ -1,15 +1,30 @@
 /******************************************************************************\
-*               ___           ___                                              *                
+*               ___           ___                                              *
 *              /  /          /         __                                      *
 *             /__/ ___ ___  /__  ___ _/__/_    ___         ___                 *
 *            /    /   /  /    / /  / /  /     / __  /   / /__/ /   /           *
 *           /    /   /__/ ___/ /__/ /  /_  o /___/ /___/ / \  /___/            *
 *                                                                              *
-*           Copyright (c) 1991 by Jeff Fisher @ http://prosoft.guru            *
-*                                                                              *
 \******************************************************************************/
 
-/************************ INCLUDE FILE DESCRIPTION *****************************
+/******************************* COPYRIGHT *************************************
+
+    Copyright 1991-2015 Jeff Fisher @ http://prosoft.guru
+
+    This file is part of FORM by prosoft.guru.
+
+    FORM is free software: you can redistribute it and/or modify it under the
+    terms of the GNU General Public License, version 3, as published by the
+    Free Software Foundation.
+
+    FORM is distributed in the hope that it will be useful, but WITHOUT ANY
+    WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+    FOR A PARTICULAR PURPOSE. See the GNU General Public License for details.
+
+    You should have received a copy of the GNU General Public License along
+    with FORM. If not, see http://www.gnu.org/licenses/.
+
+************************* INCLUDE FILE DESCRIPTION *****************************
     
     Machine dependent macros and definitions.
 
@@ -34,7 +49,9 @@
 #define u8              unsigned char
 #define s8              char
 #define u16             unsigned short
+#define s16             short
 #define u32             unsigned long
+#define s32             long
 #define f32             float
 #define f64             double
 
