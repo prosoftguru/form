@@ -54,4 +54,4 @@ extern char *           form();     /* format, ... */
 extern char *           vform();    /* format, ap */
 extern int              sform();    /* out, len, format, ... */
 extern int              vsform();   /* out, len, format, ap */
-extern int              fform();    /* fp, format, ap */
+extern int              vfform();    /* fp, format, ap */
