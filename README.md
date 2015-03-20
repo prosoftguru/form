@@ -7,9 +7,9 @@ Ready for something far better than **printf(3)**? You've found it.
 
 I wrote the form library a long time ago when I was doing a lot of consulting work. I was writing a ton of C code on various platforms. After years of using **printf(3)** for all my string formatting I was getting pretty sick of it. The syntax seemed to me to be difficult and arcane to use. It's variable arguments coupled with machine dependent argument specifications in the format string were a constant headache when porting software. And printf simply has limitations that slowed me down.
 
-So I wrote the form library. I coupled several ideas that I had used, in full or in part, on several previous projects with a new format string.
+So I wrote the form library. I coupled several ideas that I had used, in full or in part, on several previous projects with a new *format* string.
 
-1. With printf, it takes several statements to create a formatted string in a buffer. You have to specify the buffer, sprintf into it (watching for overflow), use the buffer (maybe just strcpy to another location), then free the buffer. I had been using a small wrapper for sprintf that placed strings sequentially in a static buffer that was eventually reused. Very handy, and efficient.
+1. With **printf**, it takes several statements to create a formatted string in a buffer. You have to specify the buffer, **sprintf** into it (watching for overflow), use the buffer (maybe just **strcpy** to another location), then free the buffer. I had been using a small wrapper for **sprintf** that placed strings sequentially in a static buffer that was eventually reused. Very handy, and efficient.
 
 2. At one point I was working on no less than six different platforms at the same time. No two machines handled char, int, short, long, float, and double the same! Plus some of the code was to run on more than one machine, so the differences in architechture were driving me crazy. The solution was simple, and a technique I use to this day. I created an include file, **machdep.h**, that makes the new types that are a letter and the number of bits long.
 
@@ -23,9 +23,9 @@ So I wrote the form library. I coupled several ideas that I had used, in full or
 
    I used this convention in the format string in form. It really cut down on argument allignment problems.
 
-3. Lastly, I added some features that I felt were sorely lacking from printf, such as zero fill, absolute positioning, base anything printing, left and right justification of numbers within fields, and supression of the terminating null character.
+3. Lastly, I added some features that I felt were sorely lacking from **printf**, such as zero fill, absolute positioning, base anything printing, left and right justification of numbers within fields, and supression of the terminating null character.
 
-Form is tiny, simple, fast, and portable. It doesn't use any external string functions and only uses floor() and fmod() to do its own floating point printing. I've used it in tiny embedded system projects and in mainframe code. Once you use form on a project, you'll wonder how you ever got along without it!
+**Form** is tiny, simple, fast, and portable. It doesn't use any external string or memory functions and only uses **floor()** and **fmod()** to do its own floating point printing. I've used it in tiny embedded system projects and in mainframe code. Once you use form on a project, you'll wonder how you ever got along without it!
 
 <jeff@prosoft.guru>
 
@@ -34,10 +34,6 @@ NAME
 
 form - General purpose, easy to use and extremely flexible text formatting library.
 
-SYNOPSYS
---------
-
-char * **form**(char * *format*, ...);
 
 DESCRIPTION
 -----------
@@ -73,9 +69,14 @@ FOR A PARTICULAR PURPOSE. See the GNU General Public License for details.
 You should have received a copy of the GNU General Public License along
 with FORM. If not, see http://www.gnu.org/licenses/.
 
+MANUAL
+------
 
-FORMAT STRING
--------------
+### SYNOPSYS
+
+char * **form**(char * *format*, ...);
+
+### FORMAT STRING
 
 The *format* string can contain any characters except the null character. Format definitions within the format string are enclosed in parenthesis. All characters not enclosed within parenthesis are copied directly to the output string. To include a '(' character in the output string, use two '(' characters in a row. There may be zero or more format definitions within a *format* string. There must be one argument in the argument list for for every format definition in the *format* string.
 
@@ -83,8 +84,7 @@ A format definition consists of zero or more keyletters, each keyletter may be f
 
 There are five classes of keyletters that can be specified within a format definition: The input type, the output base, the output justification, the output precision, and repositioning information.
 
-INPUT TYPES
------------
+### INPUT TYPES
 
 The input type keyletter specifies what kind of argument to expect on the argument list. It is vital that this is specified correctly as incorrect information will cause the argument list to get out of sync with the format definitions. The keyletters for specifying the input type are:
 > **s#**  =  Signed value with # bits. (Default is sizeof int * 8) Valid values are 8, 16, and 32.  
@@ -95,8 +95,7 @@ The input type keyletter specifies what kind of argument to expect on the argume
 
 The default input type is 's'. (A regular int.)
 
-OUTPUT BASE
------------
+### OUTPUT BASE
 
 The output base keyletter specifies the base in which to print numeric data:
 > **b#**  =  Print the value in base # using lower case for alpha digits.  
@@ -104,8 +103,7 @@ The output base keyletter specifies the base in which to print numeric data:
 
 The default output base is 'b10'. (Base 10.) The maximum output base is 'b37'.
 
-OUTPUT JUSTIFICATION
---------------------
+### OUTPUT JUSTIFICATION
 
 The output justification keyletter specifies the way to justify the output and the size of the output field:
 > **l#**  =  Left justify in a # character field. If the size of the data to output is greater than the field size, the *leftmost* characters will be output.  
@@ -115,8 +113,7 @@ The output justification keyletter specifies the way to justify the output and t
 
 The default output justification is 'v'.
 
-OUTPUT PRECISION
-----------------
+### OUTPUT PRECISION
 
 The output precision keyletter specifies the number of digits after the decimal point to print for floating point values.
 > **i**  =  Print the integer portion of the number only and no decimal point.  
@@ -124,13 +121,11 @@ The output precision keyletter specifies the number of digits after the decimal 
 
 The default output precision is 'i'. Note that the output precision keyletter is only relevant when used with the 'f' (floating point input type) keyletter.
 
-OUTPUT POSITION
----------------
+### OUTPUT POSITION
 
 The 'p' keyletter may be used to alter the position within the output string that the field will be printed. When 'p#' is specified within a format definition, that field will begin at position '#' in the output string. If the string is not yet that long, spaces will be added to make it that long. If the string already extends past that point, the new field will overwrite whatever is at position '#'. Note that the length of the output string will not be reduced by backwards positioning. Any further nonformat characters in the *format* string and fields printed without a format position change will be appended to the output string in the usual way.
 
-OUTPUT TERMINATION
-------------------
+### OUTPUT TERMINATION
 
 The output string will receive a null termination character *unless* the last character of the *format* string is a '(' format begin character. This feature is only useful when calling **sform** and **vsform**.
 
